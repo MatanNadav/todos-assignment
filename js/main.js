@@ -3,7 +3,7 @@
 let todos, todoToUpdate, categories, categoryId, filter = 'title',  categoryDict = {}
 
 
-// Async Function
+// Async Functions
 async function init(isFirstInit, data = null) {
     todos = await fetchTodos(filter)
     categories = await fetchCategories()
@@ -26,7 +26,7 @@ async function init(isFirstInit, data = null) {
 }
 
 async function deleteTodo() {
-    let id = parseInt(this.parentNode.parentNode.innerText.substring(0,3))
+    let id = parseInt(this.dataset.id)
     if(isNaN(id)) return
     let res = await fetchDeleteTodo(id)
     if (res.message === "todo deleted") init(false)
@@ -68,6 +68,7 @@ $('#todo-form').submit( async (e) => { // Add todo form
         updated_at: null
     }
     await fetchAddTodo(newTodo)
+    $("[name=title]").val("")
     init(false)
 })
 
@@ -97,21 +98,16 @@ function editTodo() {
     $('#edit-todo-container').show()
 }
 
-$('#todo-edit-form').submit( async (e) => {
+$('#todo-edit-form').submit( async (e) => { // Edit todo form
     e.preventDefault()
     let newTitle = $("[name=updated-title]").val()
     if(!newTitle) {
-        alert('Please choose a title and category')
+        alert('Please choose a title')
         return
     }
-    todoToUpdate = {
-        id: todoToUpdate.id,
-        category_id: categoryId,
-        title: newTitle,
-        status: todoToUpdate.status,
-        created_at: todoToUpdate.created_at,
-        updated_at: Date.now()
-    }
+    todoToUpdate.category_id = (categoryId) ? categoryId : todoToUpdate.category_id
+    todoToUpdate.updated_at = Date.now()
+    todoToUpdate.title = newTitle
     await fetchUpdateTodo(todoToUpdate)
     init(false)
     $('#edit-todo-container').hide()
@@ -147,6 +143,7 @@ function renderTodos(table, data) {
                     for (let j=0; j<3; j++) {
                         let btn = document.createElement('button')
                         btn.classList.add('btn')
+                        btn.setAttribute("data-id", todo.id)
                         switch (j) {
                             case 0:
                                 btn.innerText = "Delete"
@@ -156,13 +153,11 @@ function renderTodos(table, data) {
                             case 1:
                                 btn.innerText = "Status"
                                 btn.classList.add("update-btn")
-                                btn.setAttribute("data-id", todo.id)
                                 btn.addEventListener('click', updateStatus, false)
                                 break;
                             case 2:
                                 btn.innerText = "Edit"
                                 btn.classList.add("edit-btn")
-                                btn.setAttribute("data-id", todo.id)
                                 btn.addEventListener('click', editTodo, false)
                         }
                         td.append(btn)
