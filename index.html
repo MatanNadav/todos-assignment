@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+
+    <title>Leverate Todos</title>
+  </head>
+  <body onload="init(true)" class="center">
+
+    <!-- Todo Form -->
+    <div class="container-form">
+      <h4>Add Todo:</h4>
+        <form class="form flex space-between" id="todo-form">
+          <input type="text" class="form-control" name="title" placeholder="Title">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Choose Category
+            </button>
+            <!-- Add category Start -->
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-category-menu">
+              <div class="flex center">
+                <input type="text" id="category-add-input">
+                <button type="button" class="btn category-btn" onclick="addCategory()">Add</button>
+              </div>
+              <!-- Add category End -->
+            </div>
+          </div>
+          <input type="submit" class="btn btn-info"></input>
+        </form>
+    </div>
+    <!-- Filter -->
+    <section class="container-md flex space-between center">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFilterButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Category Filter
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-category-filter">
+        </div>
+        <button class="btn btn-primary" name="status" onclick="sortTodos(this)">Sort by Status</button>
+        <button class="btn btn-primary" name="date" onclick="sortTodos(this)">Sort by date</button>
+        <button class="btn btn-primary" name="title" onclick="sortTodos(this)">Sort by title</button>
+      </div>
+    </section>
+
+    <!-- Table -->
+    <section class="container-lg">
+      <table class="table" id="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Created</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Edit Todo -->
+    <div class="container-form" id="edit-todo-container">
+      <h4>Edit Todo:</h4>
+        <form class="form flex space-between" id="todo-edit-form">
+          <input type="text" class="form-control" name="updated-title" placeholder="Title">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Choose Category
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-category-edit">
+            </div>
+          </div>
+          <input type="submit" class="btn btn-info"></input>
+        </form>
+    </div>
+
+   
+
+    <!-- Optional JavaScript onclick="addTodo()"-->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="lib/axios.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/todoService.js"></script>
+  </body>
+</html>
